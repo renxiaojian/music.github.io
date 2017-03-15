@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>网易云音乐</title>
+    <link rel="stylesheet" href="./css/mobilebone.css">
+    <link rel="stylesheet" href="./font/iconfont.css">
+    <link rel="stylesheet" href="./css/mobile.css">
+</head>
+
+<body>
+
+    <!--播放器页面-->
+    <div id="player" class="page out">
+        <div class="bg_trans"></div>
+        <div class="bg_mark"></div>
+        <div class="player_z">
+            <section class="player_header">
+                <a href="#index" data-rel="back"><i class="iconfont">&#xe618;</i></a>
+                <div class="player_music_info">
+                    <div class="player_musicname" id="player_musicname">歌曲名字</div>
+                    <div class="player_singer" id="player_singer">演唱者</div>
+                </div>
+                <div class="share"><i class="iconfont">&#xe60a;</i></div>
+            </section>
+            <section class="player_line"></section>
+            <section class="player_body">
+                <img src="./images/g-bar.png" id="player_pointer" class="player_pointer" alt="杆儿">
+                <div id="p_CD" class="player_CD transCD pauseCD">
+                    <img src="./images/music_pic/1.png" alt="">
+                </div>
+            </section>
+            <section class="icon_list">
+                <i class="iconfont" id="favorite">&#xe678;</i>
+                <i class="iconfont">&#xe6b7;</i>
+                <i class="iconfont">&#xe621;</i>
+                <i class="iconfont">&#xe625;</i>
+            </section>
+            <section class="progress_style">
+                <span id="now_time">00:00</span>
+                <section class="pro_con">
+                    <progress class="player_pro" value="0" ></progress>
+                    <div class="pro_slide_btn"></div>
+                </section>
+                <span id="max_time">00:00</span>
+            </section>
+            <section class="player_control">
+                <i class="iconfont player_ctrl">&#xe605;</i>
+                <i class="iconfont player_prev">&#xe64f;</i>
+                <i class="iconfont player_play" id="play_pause">&#xe602;</i>
+                <i class="iconfont player_next">&#xe64d;</i>
+                <i class="iconfont player_playlist">&#xe614;</i>
+            </section>
+            <audio class="player" id="player_audio" src="./music/1.mp3"></audio>
+        </div>
+    </div>
+    <div id="player_icon">
+        <a href="#player"><i class="iconfont">&#xe649;</i></a>
+    </div>
+
+    <!--注册登录页面-->
+    <section class="main">
+        <!--主页-->
+        <section class="index_main">
+            <section class="logo_bg">
+                <img src="./images/logo.png" alt="">
+            </section>
+            <section class="go">
+                <div class="login touchchange" id="login">手机号登陆</div>
+                <div class="sign touchchange" id="sign">注册</div>
+                <div class="visitor">
+                    游客使用
+                    <i class="iconfont">&#xe6da;</i>
+                    <i class="iconfont">&#xe6da;</i>
+                    <i class="iconfont">&#xe6da;</i>
+                </div>
+            </section>
+            <section class="foot_main">
+                <section class="foot_title">其他登陆方式</section>
+                <section class="foot_icon">
+                    <section>
+                        <img src="./images/weixin.png" alt="">
+                        <div>微信</div>
+                    </section>
+                    <section>
+                        <img src="./images/qq.png" alt="">
+                        <div>QQ</div>
+                    </section>
+                    <section>
+                        <img src="./images/sina.png" alt="">
+                        <div>新浪微博</div>
+                    </section>
+                    <section>
+                        <img src="./images/wy.png" alt="">
+                        <div>网易邮箱</div>
+                    </section>
+                </section>
+            </section>
+        </section>
+        <!--登陆-->
+        <section class="login_page">
+            <section class="login_hd">
+                <i class="iconfont back_indexpage">&#xe618;</i>
+                <span>手机号登陆</span>
+            </section>
+            <section class="user_input">
+                <i class="iconfont">&#xe60e;</i>
+                <input type="text" id="username" placeholder="+86 请输入手机号" />
+            </section>
+            <section class="user_input">
+                <i class="iconfont">&#xe60f;</i>
+                <input type="password" id="password" placeholder="请输入密码" />
+                <span class="forgetp">忘记密码?</span>
+            </section>
+            <section class="login_btn" id="login_btn">登录</section>
+            <section class="wraning_login"></section>
+        </section>
+        <!--注册-->
+        <section class="sign_page" >
+            <section class="login_hd">
+                <i class="iconfont back_indexpage">&#xe618;</i>
+                <span>手机号注册</span>
+            </section>
+            <section class="user_input">
+                <i class="iconfont">&#xe60e;</i>
+                <input type="text" id="signname" placeholder="+86 请输入手机号" />
+            </section>
+            <section class="user_input">
+                <i class="iconfont">&#xe60f;</i>
+                <input type="password" id="signpassword" placeholder="设置登陆密码，不少于6位" />
+            </section>
+            <section class="sign_btn" id="sign_btn">注册</section>
+            <section class="wraning"></section>
+        </section>
+    </section>
+
+    <!--主页-->
+    <div id="index" class="page in">
+        <div id="container" class="content">
+            <!--发现音乐-->
+            <div id="content1" class="out list dark">
+                <section class="findMusic_hd">
+                    <span class="more">更多</span>
+                    发现音乐
+                </section>
+                <section class="findMusic_num">
+                    <i class="iconfont">&#xe696;</i>
+                    <span>发现的歌单(<span id="allMusic_num">207</span>)</span>
+                </section>
+                <ul class="findMusic_list" id="findMusic_list" data-info="all">
+                    <li>
+                        <img src="images/music_pic/1.png" alt=""/>
+                        <section class="findMusic_info">
+                            <div class="findMusic_name">缥缈醉</div>
+                            <div class="findMusic_singer"><span>刘珂矣</span><span>专辑:<span>半壶纱</span></span></div>
+                        </section>
+                    </li>
+                    <li>
+                        <img src="images/music_pic/2.png" alt=""/>
+                        <section class="findMusic_info">
+                            <div class="findMusic_name">你是此生最美的风景</div>
+                            <div class="findMusic_singer"><span>JS</span><span>专辑:<span>此生最美的风景</span></span></div>
+                        </section>
+                    </li>
+                </ul>
+            </div>
+            <!--我的音乐-->
+            <div id="content2" class="in list dark">
+                <section class="myMusic_header">
+                    <section class="myMusic_nav">
+                        <a href=""><i class="iconfont">&#xe640;</i></a>
+                        <span>歌单</span>
+                        <a href=""><i class="iconfont">&#xe616;</i></a>
+                    </section>
+                    <section class="myMusic_con">
+                        <section class="img_box">
+                            <img src="./images/panda.png" alt="">
+                            <div class="img_mask"></div>
+                            <i class="iconfont love_icon">&#xe678;</i>
+                            <span class="listen_bar">
+                                <i class="iconfont erji">&#xe600;</i>
+                                <span class="listen_count">1826</span>
+                            </span>
+                        </section>
+                        <section class="myInfo">
+                            <div class="loveMusic">我喜欢的音乐</div>
+                            <div class="my_info">
+                                <img src="./images/touxiang.png" alt="">
+                                <span>ren</span>
+                                <i class="iconfont">&#xe6da;</i>
+                            </div>
+                        </section>
+                        <section class="music_icon">
+                            <section>
+                                <div><i class="iconfont">&#xe606;</i></div>
+                                <div>收藏</div>
+                            </section>
+                            <section>
+                                <div><i class="iconfont">&#xe621;</i></div>
+                                <div>评论</div>
+                            </section>
+                            <section>
+                                <div><i class="iconfont">&#xe60a;</i></div>
+                                <div>分享</div>
+                            </section>
+                            <section>
+                                <div><i class="iconfont">&#xe6b7;</i></div>
+                                <div>下载</div>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+                <section class="myMusic_body">
+                    <section class="list_hd">
+                        <i class="iconfont">&#xe602;</i>
+                        <span class="all_p">播放全部</span>
+                        <span class="music_sum">(共<span id="allmusicnum">0</span>首)</span>
+                        <i class="iconfont">&#xe614;</i>
+                    </section>
+                    <ul class="myMusic_list" id="myMusic_list" data-info="favorite">
+                        <li>
+                            <div class="list_num">1</div>
+                            <div class="list_info">
+                                <div class="music_title">情歌</div>
+                                <div class="music_singer">梁静茹</div>
+                            </div>
+                            <div class="music_point_box">
+                                <div class="music_point">
+                                    <i class="iconfont">&#xe60b;</i>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="list_num">2</div>
+                            <div class="list_info">
+                                <div class="music_title">方圆几里</div>
+                                <div class="music_singer">薛之谦</div>
+                            </div>
+                            <div class="music_point_box">
+                                <div class="music_point">
+                                    <i class="iconfont">&#xe60b;</i>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+            <div id="content3" class="out list" style="background: green">内部内容3</div>
+            <!--我的账号-->
+            <div id="content4" class="out list">
+                <section class="myAccount_hd">
+                    账号
+                </section>
+                <section class="user">
+                    <section class="user_header">
+                        <img src="./images/touxiang.png" alt="">
+                        <section class="user_con">
+                            <div class="user_name" id="user_name">铩羽魅影</div>
+                            <div class="vip">lv.6</div>
+                        </section>
+                        <section class="sign_i">签到</section>
+                    </section>
+                    <section class="user_info">
+                        <section>
+                            动态<p>25</p>
+                        </section>
+                        <section>
+                            关注<p>39</p>
+                        </section>
+                        <section>
+                            粉丝<p>10</p>
+                        </section>
+                        <section>
+                            <i class="iconfont">&#xe609;</i>
+                            <div>我的资料</div>
+                        </section>
+                    </section>
+                </section>
+                <section class="myAccount_body">
+                    <section>
+                        <i class="iconfont">&#xe64b;</i>
+                        <span>我的消息</span>
+                        <i class="iconfont">&#xe6da;</i>
+                    </section>
+                    <section>
+                        <i class="iconfont">&#xe613;</i>
+                        <span>会员中心</span>
+                        <i class="iconfont">&#xe6da;</i>
+                    </section>
+                    <section>
+                        <i class="iconfont">&#xe654;</i>
+                        <span>积分商城</span>
+                        <i class="iconfont">&#xe6da;</i>
+                    </section>
+                    <section>
+                        <i class="iconfont">&#xe6a1;</i>
+                        <span>在线听歌免流量</span>
+                        <i class="iconfont">&#xe6da;</i>
+                    </section>
+                    <section class="shezhi">
+                        <i class="iconfont">&#xe636;</i>
+                        <span>设置</span>
+                        <i class="iconfont">&#xe6da;</i>
+                    </section>
+                    <section>
+                        <i class="iconfont">&#xe65d;</i>
+                        <span>扫一扫</span>
+                        <i class="iconfont">&#xe6da;</i>
+                    </section>
+                    <section>
+                        <i class="iconfont">&#xe78e;</i>
+                        <span>主题换肤</span>
+                        <i class="iconfont">&#xe6da;</i>
+                    </section>
+                    <section id="ye">
+                        <i class="iconfont">&#xe63f;</i>
+                        <span>夜间模式</span>
+                        <i class="iconfont">&#xe6da;</i>
+                    </section>
+                    <section>
+                        <i class="iconfont">&#xe647;</i>
+                        <span>定时关闭</span>
+                        <i class="iconfont">&#xe6da;</i>
+                    </section>
+                    <section>
+                        <i class="iconfont">&#xe64a;</i>
+                        <span>音乐闹钟</span>
+                        <i class="iconfont">&#xe6da;</i>
+                    </section>
+                    <section>
+                        <i class="iconfont">&#xe617;</i>
+                        <span>驾驶模式</span>
+                        <i class="iconfont">&#xe6da;</i>
+                    </section>
+                    <section class="sharewy">
+                        <i class="iconfont">&#xe601;</i>
+                        <span>分享网易云音乐</span>
+                        <i class="iconfont">&#xe6da;</i>
+                    </section>
+                    <section>
+                        <i class="iconfont">&#xe653;</i>
+                        <span>关于</span>
+                        <i class="iconfont">&#xe6da;</i>
+                    </section>
+                    <section class="esc">
+                        退出登录
+                    </section>
+                </section>
+            </div>
+        </div>
+        <!--底部切换条-->
+        <ul class="footer">
+            <li>
+                <a href="#content1" data-rel="auto" data-container="container" data-classpage="list">
+                    <i class="iconfont">&#xe622;</i>
+                    <span>发现音乐</span>
+                </a>
+            </li>
+            <li id="myMusic">
+                <a href="#content2" class="active" data-rel="auto" data-container="container" data-classpage="list">
+                    <i class="iconfont">&#xe629;</i>
+                    <span>我的音乐</span>
+                </a>
+            </li>
+            <li>
+                <a href="#content3" data-rel="auto" data-container="container" data-classpage="list">
+                    <i class="iconfont">&#xe8a9;</i>
+                    <span>朋友</span>
+                </a>
+            </li>
+            <li>
+                <a href="#content4" data-rel="auto" data-container="container" data-classpage="list">
+                    <i class="iconfont">&#xe650;</i>
+                    <span>账号</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <script src="javascript/setfontSize.js"></script>
+    <script src="./libs/zepto.js/dist/zepto.js" charset="utf-8"></script>
+    <script src="./libs/zepto.js/src/touch.js" charset="utf-8"></script>
+    <script src="./javascript/mobile.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./javascript/player.js"></script>
+    <script src="./javascript/mobilebone.js"></script>
+</body>
+
+</html>

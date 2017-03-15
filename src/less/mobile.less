@@ -1,0 +1,898 @@
+// 重置样式all-music
+@import "../libs/normalize-css/normalize.css";
+@import "../font/iconfont.css";
+
+html,
+body{
+    height: 100%;
+    font-family: Arial;
+    ul{
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+.list.out {
+    display: none;
+}
+.list{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-animation: 2s ease-in-out forwards;
+    animation: 2s ease-in-out forwards;
+}
+
+//中部，底部
+.footer,.content{
+    position: absolute;
+    width: 100%;
+    left: 0;
+}
+
+#player_icon{
+    height: 8vh;
+    width: 8vh;
+    color: #ffffff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 500;
+    a{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        i{
+            font-size: 1.2rem;
+        }
+    }
+}
+
+.content{
+    height: 90vh;
+    top:0;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+.footer{
+    height: 10vh;
+    bottom: 0;
+    display: flex;
+    z-index: 1;
+    background: #000000;
+    color: #ffffff;
+    li{
+        width: 25%;
+        height: 100%;
+        color: #6b6b6b;
+        a{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            transition: color .35s;
+            i{
+                font-size: 1.2rem;
+            }
+            span{
+                display: block;
+                margin-top: 0.6vh;
+                font-size: 0.6rem;
+            }
+        }
+        a.active{
+            color: #ffffff;
+        }
+    }
+}
+
+//---------------------------------播放器页面--------------------------//
+#player{
+    width: 100%;
+    height: 100%;
+    color: #f7f7f7;
+    position: fixed;
+    transition: transform .5s ease;
+    background: url("../images/music_pic/1.png") no-repeat center;
+    background-size: cover;
+    z-index: 2000;
+    .bg_trans{
+        width: 100vw;
+        height: 100vh;
+        background: inherit;
+        transform: scale(1.2,1.2);
+        transform-origin: 50% 50%;
+        -webkit-filter: blur(10px);
+        position: absolute;
+    }
+    .bg_mark{
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,.5);
+        z-index: 2400;
+    }
+    .player_z{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 2800;
+        .player_header{
+            width: 100%;
+            height: 8vh;
+            display: flex;
+            a,.share{
+                flex: 0 0 8vh;
+                width: 8vh;
+                height: 8vh;
+                text-align: center;
+                i{
+                    font-size: 1.2rem;
+                    line-height: 8vh;
+                }
+            }
+            .player_music_info{
+                flex: 1 1 auto;
+                .player_musicname{
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    height: 4vh;
+                    line-height: 5vh;
+                }
+                .player_singer{
+                    font-size: 0.6rem;
+                    height: 3vh;
+                    line-height: 3vh;
+                }
+            }
+        }
+        .player_line{
+            width: 80vw;
+            margin: 0 auto;
+            height: 1px;
+            background: -webkit-linear-gradient(left,transparent, #bdbdbd,transparent);
+        }
+        .player_body{
+            width: 100%;
+            height: 70vh;
+            overflow: hidden;
+            position: relative;
+            .player_pointer{
+                position: absolute;
+                width: 40vw;
+                transform: translate(46vw,-2.5vh) rotate(15deg);
+                transition: transform 1s ease;
+                transform-origin: 10% 25%;
+                z-index: 3000;
+            }
+            //旋转指针头
+            .transPointer{
+                transform: translate(46vw,-2.5vh) rotate(40deg);
+            }
+
+            .player_CD{
+                width: 40vh;
+                height: 40vh;
+                margin: 7vh auto;
+                background: url("../images/pan-i.png") no-repeat;
+                background-size: contain;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 3000;
+                img{
+                    width: 60%;
+                    height: 60%;
+                    border-radius: 50%;
+                    border-style: none;
+                }
+            }
+        }
+        .icon_list{
+            width: 70vw;
+            height: 6vh;
+            margin: 0 auto;
+            display: flex;
+            i{
+                flex: 1 1 auto;
+                text-align: center;
+                font-size: 1.2rem;
+            }
+            i:nth-child(1),i:nth-child(4){
+                line-height: 6vh;
+            }
+            i:nth-child(2),i:nth-child(3){
+                line-height: 5.5vh;
+            }
+        }
+        .progress_style{
+            width: 100%;
+            height: 2.5vh;
+            display: flex;
+            margin: 1.75vh auto;
+            align-items: center;
+            span{
+                width:15vw;
+                font-size: 1vh;
+                text-align: center;
+                color:#bdbdbd;
+            }
+            .pro_con{
+                width:70vw;
+                height:1.75vh;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .pro_slide_btn{
+                    width:1.75vh;
+                    height:1.75vh;
+                    background:#fdfdfd;
+                    border-radius: 50%;
+                    position: absolute;
+                    left:-2%; //偏左2%
+                }
+                .player_pro{
+                    width:70vw;
+                    height:2px;
+                    border-radius: 2px;
+                }
+                .player_pro::-webkit-progress-bar{
+                    background:#b6b6b6
+                }
+
+                .player_pro::-webkit-progress-value{
+                    background:#e61d16;
+                    border-bottom-right-radius: 2px;
+                    border-top-right-radius: 2px;
+                }
+            }
+        }
+        .player_control{
+            display:flex;
+            width:94vw;
+            margin:0 auto;
+            align-items: center;
+            i{
+                text-align: center;
+                flex: 1 0 auto;
+            }
+            .player_play{
+                font-size: 7vh;
+            }
+            .player_prev,.player_next{
+                font-size: 5.5vh;
+            }
+            .player_playlist,.player_ctrl{
+                font-size: 3vh;
+            }
+        }
+    }
+
+}
+
+
+//旋转CD
+.transCD{
+    animation: play_rotate 20s linear infinite;
+}
+
+.pauseCD{
+    animation-play-state:paused;
+}
+
+@keyframes play_rotate {
+    100%{
+        transform:rotate(360deg);
+    }
+}
+
+//---------------------------------发现音乐------------------------//
+#content1{
+    //background: #1d1d1d;
+    overflow: scroll;
+    .findMusic_hd{
+        width: 100%;
+        height: 8vh;
+        background: #1d1d1d;
+        color: #ffffff;
+        font-size: 1rem;
+        position: fixed;
+        line-height: 8vh;
+        text-align: center;
+        border-bottom:1px solid #e3e3e3;
+        .more{
+            display: block;
+            position: absolute;
+            margin-left: 2vw;
+        }
+    }
+    .findMusic_num{
+        margin-top: 8vh;
+        background: #0c0c0c;
+        padding:1.6vh 2vw;
+        vertical-align: middle;
+        font-size: 0.8rem;
+        color: #ffffff;
+        i{
+            font-size: 1rem;
+            margin-right: 1vw;
+        }
+    }
+    .findMusic_list{
+        li{
+            margin: 0;
+            display: flex;
+            padding:1vh 0 0 0;
+            img{
+                width:8vh;
+                height:8vh;
+                display: block;
+                margin-left: 1.5vh;
+            }
+            .findMusic_info{
+                white-space:nowrap;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                margin-left: 1.5vh;
+                height:8vh;
+                flex: 1;
+                display: inline-block;
+                padding:1vh 0 0 0;
+                border-bottom: 1px solid #e3e3e3;
+                .findMusic_name{
+                    font-size: 0.7rem;
+                    margin-bottom: 1vh;
+                }
+                .findMusic_singer{
+                    font-size: 2.1vh;
+                    line-height: 3.5vh;
+                    display: block;
+                    color:#a7a7a7;
+                    white-space:nowrap;
+                    overflow:hidden;
+                    text-overflow:ellipsis;
+                    span{
+                        margin-right: 2vh;
+                    }
+                }
+            }
+        }
+    }
+}
+//---------------------------------我的音乐------------------------//
+#content2{
+    overflow: scroll;
+    .myMusic_header{
+        position: relative;
+        width: 100%;
+        height: 40vh;
+        background: url("../images/mbg.jpg");
+        color: #ffffff;
+        .myMusic_nav{
+            position: fixed;
+            display: flex;
+            width: 100%;
+            height: 8vh;
+            background: url("../images/mbg_hd.jpg") no-repeat;
+            z-index: 100;
+            span{
+                display: inline-block;
+                line-height: 8vh;
+            }
+            a{
+                display: inline-block;
+                width: 8vh;
+                height: 8vh;
+                text-align: center;
+                line-height: 8vh;
+                i{
+                    font-size: 1.2rem;
+                }
+            }
+            a:last-child{
+                position: absolute;
+                right: 5vh;
+            }
+        }
+        .myMusic_con{
+            position: absolute;
+            top:8vh;
+            width: 100%;
+            height: 25vh;
+            box-sizing: border-box;
+            padding: 0 3vw 1.5vh;
+            .img_box{
+                width: 22vh;
+                position: relative;
+                float: left;
+                img{
+                    display: block;
+                    width: 22vh;
+                }
+                .img_mask{
+                    position: absolute;
+                    width:22vh;
+                    height:22vh;
+                    top:0;
+                    left:0;
+                    display:block;
+                    background: rgba(0,0,0,.5);
+                }
+                .love_icon{
+                    position: absolute;
+                    width:22vh;
+                    height:22vh;
+                    top:2vh;
+                    left:2vh;
+                    display:block;
+                    font-size: 18vh;
+                }
+                .listen_bar{
+                    position: absolute;
+                    top: 0;
+                    right:1vw;
+                    font-size: 2vh;
+                    display:flex;
+                    align-items: center;
+                    .erji{
+                        font-size: 2.4vh;
+                    }
+                }
+            }
+            .myInfo{
+                box-sizing: border-box;
+                padding-top: 2vh;
+                padding-left: 24vh;
+                img{
+                    display: block;
+                    width:5vh;
+                    border-radius: 50%;
+                }
+                .loveMusic{
+                    font-size: 1rem;
+                }
+                .my_info{
+                    display: flex;
+                    align-items: center;
+                    margin-top: 3.5vh;
+                    span{
+                        font-size: 3vh;
+                        padding: 0 2vh;
+                    }
+                    i{
+                        font-size: 3vh;
+                    }
+                }
+            }
+            .music_icon{
+                width:100%;
+                height:9vh;
+                display: flex;
+                box-sizing: border-box;
+                section{
+                    flex: 1;
+                    text-align: center;
+                    font-size: 2.2vh;
+                    i{
+                        font-size: 4vh;
+                    }
+                    div{
+                        padding-top:1vh;
+                    }
+                }
+            }
+        }
+    }
+    .myMusic_body{
+        box-sizing: border-box;
+        padding: 0 0 0 1.5vh;
+        .list_hd{
+            width: 100%;
+            height: 8vh;
+            line-height: 8vh;
+            i:first-child{
+                font-size: 3.2vh;
+                margin-right: 1vh;
+            }
+            .all_p{
+                font-size: 3vh;
+                margin-right: 1vh;
+            }
+            .music_sum{
+                font-size: 2.4vh;
+                color: #a7a7a7;
+            }
+            i:last-child{
+                font-size: 3vh;
+                float: right;
+                margin-right: 4vh;
+            }
+        }
+        .myMusic_list{
+            li{
+                margin:0;
+                padding:0;
+                width:100%;
+                height:9vh;
+                line-height: 9vh;
+                display: flex;
+                .list_num{
+                    float: left;
+                    width:8vw;
+                    font-size: 3vh;
+                    box-sizing: border-box;
+                    padding-left: 1vh;
+                    color: #a7a7a7;
+                }
+                .list_info{
+                    flex: 1;
+                    height:8vh;
+                    font-size: 2vh;
+                    padding:0;
+                    margin:0;
+                    box-sizing: border-box;
+                    border-top:1px solid #e3e3e3;
+                    div{
+                        height:4.5vh;
+                        padding:0;
+                        margin:0;
+                        line-height: 4vh;
+                        box-sizing: border-box;
+                    }
+                    .music_title{
+                        font-size: 2.6vh;
+                        line-height: 6vh;
+                    }
+                    .music_singer{
+                        color:#a7a7a7;
+                        line-height: 3vh;
+                    }
+                }
+
+                .music_point_box{
+                    float: right;
+                    width:7vw;
+                    height:9vh;
+                    padding-right: 2vw;
+                    margin-right: 4vw;
+                    border-top:1px solid #e3e3e3;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .music_point{
+                        border:1px solid #e3e3e3;
+                        height:3.4vh;
+                        width:100%;
+                        border-radius: 1.5vw;
+                        i{
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            line-height: 4vh;
+                            font-size: 4vh;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+//---------------------------------我的账号------------------------//
+
+#content4{
+    background: #EEEFF0;
+    overflow: scroll;
+    .myAccount_hd{
+        position: fixed;
+        background: #0c0c0c;
+        color: #ffffff;
+        font-size: 1rem;
+        width: 100%;
+        height: 8vh;
+        text-align: center;
+        line-height: 8vh;
+    }
+    .user{
+        margin-top: 8vh;
+        width: 100%;
+        height: 24vh;
+        background: #ffffff;
+        .user_header{
+            width: 100%;
+            height: 15vh;
+            border-bottom: 1px solid #e3e3e3;
+            display: flex;
+            align-items: center;
+            img{
+                display: block;
+                width: 10vh;
+                height: 10vh;
+                margin: 0 4vw;
+                border-radius: 50%;
+            }
+            .user_con{
+                flex: 2;
+                .user_name{
+                    font-size: 0.8rem;
+                    line-height: 1rem;
+                }
+                .vip{
+                    width: 6vw;
+                    text-align: center;
+                    font-size: 0.6rem;
+                    margin: 1vh 0;
+                    padding: 1vw;
+                    border-radius: 1vh;
+                    border: 1px solid #D6D6D6;
+                }
+            }
+            .sign_i{
+                text-align: center;
+                padding: 2vw;
+                width: 10vw;
+                border: 1px solid #D6D6D6;
+                border-radius: 1.2vh;
+                font-size: 0.6rem;
+                margin-right: 10vw;
+            }
+        }
+        .user_info{
+            width: 100%;
+            height: 9vh;
+            display: flex;
+            font-size: 0.6rem;
+            text-align: center;
+            section{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                width: 25%;
+                i{
+                    font-size: 0.8rem;
+                }
+                p{
+                    margin: 1vh 0;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+    .myAccount_body{
+        width: 100%;
+        section{
+            background: #ffffff;
+            width: 100%;
+            height: 4vh;
+            display: flex;
+            align-items: center;
+            padding: 1.5vh 0;
+            span{
+                display: inline-block;
+                width: 80vw;
+                font-size: 0.7rem;
+            }
+            i{
+                width: 10vw;
+                text-align: center;
+            }
+            i:first-child{
+                font-size: 1.2rem;
+                margin: .6vh 2vh 0;
+            }
+            i:last-child{
+                font-size: 1.4rem;
+            }
+        }
+        section:nth-child(1){
+            margin: 1.4vh 0;
+        }
+        .shezhi,.sharewy{
+            margin-top: 1.4vh;
+        }
+        .esc{
+            margin-top: 1.4vh;
+            padding: 2.6vh 0;
+            color: #E10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
+
+//-----------------------注册登录页面----------------------------
+
+.touch_btn{
+    background: #E10000;
+    color: #FFFFFF;
+}
+
+.main{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    left: 0;
+    background: #FFFFFF;
+    z-index: 8000;
+    .index_main{
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+        background: url("../images/a1o.jpg") no-repeat 0 0;
+        background-size: 100%;
+        .logo_bg{
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 32vh;
+        }
+        .go{
+            width: 100%;
+            position: absolute;
+            top:32vh;
+            height: 24vh;
+            font-size: 0.8rem;
+            color: #E10000;
+            .login,.sign{
+                width: 80vw;
+                height: 6vh;
+                border: 1px solid #E10000;
+                border-radius: 3vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 3vh auto;
+            }
+            .visitor{
+                text-align: center;
+                font-size: 0.6rem;
+                color: #494949;
+                i{
+                    margin-right: -1.4vh;
+                }
+                i:nth-child(1){
+                    color: #494949;
+                }
+                i:nth-child(2){
+                    color: #a1a1a1;
+                }
+                i:nth-child(3){
+                    color: #e0e0e0;
+                }
+            }
+        }
+
+        .foot_main{
+            position: absolute;
+            bottom:5vh;
+            width: 100%;
+            .foot_title{
+                font-size: 0.6rem;
+                text-align: center;
+                margin: 2vh auto;
+                color: #8A8A8A;
+            }
+            .foot_icon{
+                width: 86%;
+                display: flex;
+                margin: 0 auto;
+                section{
+                    flex: 1;
+                    text-align: center;
+                    img{
+                        display: block;
+                        margin:1vh auto;
+                        width:6vh;
+                    }
+                    div{
+                        color: #8A8A8A;
+                        font-size: 2vh;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//登陆页面
+.sign_page,
+.login_page{
+    width: 100vw;
+    height: 100vh;
+    z-index: 4000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #FFFFFF;
+    display: none;
+}
+.login_hd{
+    height: 8vh;
+    color: #FFFFFF;
+    background: #E10000;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8vh;
+    i{
+        width: 15vw;
+        font-size: 4.5vh;
+        text-align: center;
+    }
+    span{
+        font-size: 1rem;
+    }
+}
+.user_input{
+    max-width:80vw;
+    margin: 3vh auto;
+    border-bottom: 1px solid #bdbdbd;
+    display: flex;
+    align-items: center;
+    i{
+        width:4vh;
+        height:6vh;
+        font-size: 3vh;
+        line-height: 6vh;
+    }
+    input{
+        font-family: Arial;
+        flex: 1;
+        width: 30vh;
+        height:6vh;
+        font-size: 2.5vh;
+        line-height: 6vh;
+        box-sizing: border-box;
+        border:none;
+        background: transparent;
+        outline:none;
+    }
+    .forgetp{
+        color: #618aff;
+        font-size: 0.6rem;
+    }
+}
+
+.sign_btn,
+.login_btn{
+    max-width:80vw;
+    height:6vh;
+    background: #E10000;
+    margin:5vh auto;
+    border-radius: 3px;
+    font-size: 2.5vh;
+    text-align: center;
+    line-height: 6vh;
+    color:#FFFFFF;
+}
+.wraning_login,
+.wraning{
+    max-width:80vw;
+    height:6vh;
+    background: #333333;
+    margin:5vh auto;
+    border-radius: 3px;
+    font-size: 2.5vh;
+    text-align: center;
+    line-height: 6vh;
+    color:#FFFFFF;
+    display: none;
+    transition: all 0.5s ease;
+}
+
+
